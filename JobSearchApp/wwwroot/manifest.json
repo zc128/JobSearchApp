@@ -1,0 +1,16 @@
+{
+  "name": "JobSearchApp",
+  "short_name": "JobSearch",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "144x144",
+      "type": "image/png",
+      "src": "https://www.clipartkey.com/mpngs/m/129-1295037_clip-art-free-icon-download-search-job-icon.png"
+    }
+  ]
+}
+//minimal-ui
+//fullscreen
