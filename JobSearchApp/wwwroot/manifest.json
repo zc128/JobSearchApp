@@ -1,6 +1,6 @@
 {
-  "name": "JobSearchApp",
-  "short_name": "JobSearch",
+  "name": "JobSearch",
+  "short_name": "Job",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
