@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
 
-namespace JobSearchApp.Controllers
+namespace JobSearchApp.Controllers.Admin
 {
     public class JobApplicationsController : Controller
     {
@@ -22,7 +22,7 @@ namespace JobSearchApp.Controllers
         // GET: JobApplications
         public async Task<IActionResult> Index()
         {
-            var jobSearchDbContext = _context.JobApplications.Include(j => j.Candidate).Include(j => j.JobPosting);
+            var jobSearchDbContext = _context.JobApplications.Include(j => j.Candidate).Include(j => j.JobPosting).Include(j => j.Resume);
             return View(await jobSearchDbContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace JobSearchApp.Controllers
             var jobApplication = await _context.JobApplications
                 .Include(j => j.Candidate)
                 .Include(j => j.JobPosting)
+                .Include(j => j.Resume)
                 .FirstOrDefaultAsync(m => m.ApplicationID == id);
             if (jobApplication == null)
             {
@@ -51,6 +52,7 @@ namespace JobSearchApp.Controllers
         {
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName");
             ViewData["JobPostingID"] = new SelectList(_context.JobPostings, "JobPostingID", "JobPostingID");
+            ViewData["ResumeID"] = new SelectList(_context.Resumes, "ResumeID", "ResumeID");
             return View();
         }
 
@@ -59,7 +61,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationID,Date,JobPostingID,UserID")] JobApplication jobApplication)
+        public async Task<IActionResult> Create([Bind("ApplicationID,Date,Coverletter,JobPostingID,UserID,ResumeID")] JobApplication jobApplication)
         {
             if (ModelState.IsValid)
             {
@@ -69,6 +71,7 @@ namespace JobSearchApp.Controllers
             }
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", jobApplication.UserID);
             ViewData["JobPostingID"] = new SelectList(_context.JobPostings, "JobPostingID", "JobPostingID", jobApplication.JobPostingID);
+            ViewData["ResumeID"] = new SelectList(_context.Resumes, "ResumeID", "ResumeID", jobApplication.ResumeID);
             return View(jobApplication);
         }
 
@@ -87,6 +90,7 @@ namespace JobSearchApp.Controllers
             }
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", jobApplication.UserID);
             ViewData["JobPostingID"] = new SelectList(_context.JobPostings, "JobPostingID", "JobPostingID", jobApplication.JobPostingID);
+            ViewData["ResumeID"] = new SelectList(_context.Resumes, "ResumeID", "ResumeID", jobApplication.ResumeID);
             return View(jobApplication);
         }
 
@@ -95,7 +99,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationID,Date,JobPostingID,UserID")] JobApplication jobApplication)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationID,Date,Coverletter,JobPostingID,UserID,ResumeID")] JobApplication jobApplication)
         {
             if (id != jobApplication.ApplicationID)
             {
@@ -124,6 +128,7 @@ namespace JobSearchApp.Controllers
             }
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", jobApplication.UserID);
             ViewData["JobPostingID"] = new SelectList(_context.JobPostings, "JobPostingID", "JobPostingID", jobApplication.JobPostingID);
+            ViewData["ResumeID"] = new SelectList(_context.Resumes, "ResumeID", "ResumeID", jobApplication.ResumeID);
             return View(jobApplication);
         }
 
@@ -138,6 +143,7 @@ namespace JobSearchApp.Controllers
             var jobApplication = await _context.JobApplications
                 .Include(j => j.Candidate)
                 .Include(j => j.JobPosting)
+                .Include(j => j.Resume)
                 .FirstOrDefaultAsync(m => m.ApplicationID == id);
             if (jobApplication == null)
             {

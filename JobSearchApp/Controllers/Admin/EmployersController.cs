@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
 
-namespace JobSearchApp.Controllers
+namespace JobSearchApp.Controllers.Admin
 {
     public class EmployersController : Controller
     {
@@ -54,7 +54,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserID,FullName,Company,JobTitle,Email,Phone")] Employer employer)
+        public async Task<IActionResult> Create([Bind("UserID,FullName,Company,JobTitle,Email,Phone,YearEstablished,Biography")] Employer employer)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserID,FullName,Company,JobTitle,Email,Phone")] Employer employer)
+        public async Task<IActionResult> Edit(int id, [Bind("UserID,FullName,Company,JobTitle,Email,Phone,YearEstablished,Biography")] Employer employer)
         {
             if (id != employer.UserID)
             {

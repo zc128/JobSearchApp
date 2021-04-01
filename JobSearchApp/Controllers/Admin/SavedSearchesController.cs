@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
 
-namespace JobSearchApp.Controllers
+namespace JobSearchApp.Controllers.Admin
 {
     public class SavedSearchesController : Controller
     {
@@ -22,8 +22,7 @@ namespace JobSearchApp.Controllers
         // GET: SavedSearches
         public async Task<IActionResult> Index()
         {
-            var jobSearchDbContext = _context.SavedSearches.Include(s => s.Candidate);
-            return View(await jobSearchDbContext.ToListAsync());
+            return View(await _context.SavedSearches.ToListAsync());
         }
 
         // GET: SavedSearches/Details/5
@@ -35,7 +34,6 @@ namespace JobSearchApp.Controllers
             }
 
             var savedSearch = await _context.SavedSearches
-                .Include(s => s.Candidate)
                 .FirstOrDefaultAsync(m => m.SavedSearchID == id);
             if (savedSearch == null)
             {
@@ -48,7 +46,6 @@ namespace JobSearchApp.Controllers
         // GET: SavedSearches/Create
         public IActionResult Create()
         {
-            ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SavedSearchID,UserID,SearchedTerm")] SavedSearch savedSearch)
+        public async Task<IActionResult> Create([Bind("SavedSearchID,CandidateID,EmployerID,SearchedTerm")] SavedSearch savedSearch)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace JobSearchApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", savedSearch.UserID);
             return View(savedSearch);
         }
 
@@ -82,7 +78,6 @@ namespace JobSearchApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", savedSearch.UserID);
             return View(savedSearch);
         }
 
@@ -91,7 +86,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SavedSearchID,UserID,SearchedTerm")] SavedSearch savedSearch)
+        public async Task<IActionResult> Edit(int id, [Bind("SavedSearchID,CandidateID,EmployerID,SearchedTerm")] SavedSearch savedSearch)
         {
             if (id != savedSearch.SavedSearchID)
             {
@@ -118,7 +113,6 @@ namespace JobSearchApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", savedSearch.UserID);
             return View(savedSearch);
         }
 
@@ -131,7 +125,6 @@ namespace JobSearchApp.Controllers
             }
 
             var savedSearch = await _context.SavedSearches
-                .Include(s => s.Candidate)
                 .FirstOrDefaultAsync(m => m.SavedSearchID == id);
             if (savedSearch == null)
             {

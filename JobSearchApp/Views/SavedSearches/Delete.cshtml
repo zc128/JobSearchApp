@@ -12,11 +12,17 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Candidate)
+            @Html.DisplayNameFor(model => model.CandidateID)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Candidate.UserID)
-        </dd class>
+            @Html.DisplayFor(model => model.CandidateID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployerID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmployerID)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SearchedTerm)
         </dt>

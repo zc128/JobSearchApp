@@ -22,8 +22,13 @@ namespace JobSearchApp.Models
         public string Email { get; set; }
         [StringLength(1000)]
         public string Phone { get; set; }
+        [StringLength(500)]
+        public string YearEstablished { get; set; }
+        [StringLength(4000)]
+        public string Biography { get; set; }
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<JobPosting> JobPostings { get; set; }
+        public ICollection<SavedSearch> SavedSearches { get; set; }
 
     }
 }

@@ -16,10 +16,16 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Coverletter)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.JobPosting)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Candidate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resume)
             </th>
             <th></th>
         </tr>
@@ -31,10 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Coverletter)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.JobPosting.JobPostingID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Candidate.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resume.ResumeID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> |

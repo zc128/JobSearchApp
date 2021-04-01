@@ -25,5 +25,8 @@ namespace JobSearchApp.Models
         public string HighestEducation { get; set; }
         [StringLength(1000)]
         public string WorkExperience { get; set; }
+        [StringLength(1000)]
+        public string Skills { get; set; }
+        public ICollection<JobApplication> JobApplications { get; set; }
     }
 }

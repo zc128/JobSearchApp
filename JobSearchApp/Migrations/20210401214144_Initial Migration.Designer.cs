@@ -4,14 +4,16 @@ using JobSearchApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobSearchApp.Migrations
 {
     [DbContext(typeof(JobSearchDbContext))]
-    partial class JobSearchDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210401214144_Initial Migration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,10 +233,10 @@ namespace JobSearchApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CandidateID")
+                    b.Property<int>("CandidateID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmployerID")
+                    b.Property<int>("EmployerID")
                         .HasColumnType("int");
 
                     b.Property<string>("SearchedTerm")

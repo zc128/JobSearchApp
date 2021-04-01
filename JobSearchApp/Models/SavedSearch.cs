@@ -12,9 +12,12 @@ namespace JobSearchApp.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SavedSearchID { get; set; }
-        public int UserID { get; set; }
+        public int? CandidateID { get; set; }
         [ForeignKey("UserID")]
         public Candidate Candidate { get; set; }
+        public int? EmployerID { get; set; }
+        [ForeignKey("UserID")]
+        public Employer Employer { get; set; }
         [StringLength(4000)]
         public string SearchedTerm { get; set; }
     }

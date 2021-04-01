@@ -14,6 +14,10 @@ namespace JobSearchApp.Models
         public int UserID { get; set; }
         [StringLength(500)]
         public string FullName { get; set; }
+        [StringLength(1000)]
+        public string Email { get; set; }
+        [StringLength(1000)]
+        public string PhoneNumber { get; set; }
         public ICollection<JobApplication> JobApplications { get; set; }
         public ICollection<SavedSearch> SavedSearches { get; set; }
         public ICollection<Notification> Notifications { get; set; }

@@ -47,7 +47,7 @@ self.addEventListener('install', swInstall);
     )
 })*/
 
-//Cache Fir
+//Cache First
 //self.addEventListener('fetch', function (event)
 //    event.respondWit
 //        caches.match(event.request).then(function (cacheResponse)

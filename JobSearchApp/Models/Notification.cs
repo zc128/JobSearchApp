@@ -21,6 +21,8 @@ namespace JobSearchApp.Models
         public string Date { get; set; }
         [StringLength(4000)]
         public string Description { get; set; }
+        [StringLength(1000)]
+        public string Type { get; set; }
      
     }
 }

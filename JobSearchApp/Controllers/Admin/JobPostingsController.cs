@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
 
-namespace JobSearchApp.Controllers
+namespace JobSearchApp.Controllers.Admin
 {
     public class JobPostingsController : Controller
     {
@@ -48,7 +48,7 @@ namespace JobSearchApp.Controllers
         // GET: JobPostings/Create
         public IActionResult Create()
         {
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName");
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobPostingID,Company,Description,CompanyAddress,Email,UserID")] JobPosting jobPosting)
+        public async Task<IActionResult> Create([Bind("JobPostingID,Company,Description,CompanyAddress,Email,Salary,UserID")] JobPosting jobPosting)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace JobSearchApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName", jobPosting.UserID);
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
             return View(jobPosting);
         }
 
@@ -82,7 +82,7 @@ namespace JobSearchApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName", jobPosting.UserID);
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
             return View(jobPosting);
         }
 
@@ -91,7 +91,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobPostingID,Company,Description,CompanyAddress,Email,UserID")] JobPosting jobPosting)
+        public async Task<IActionResult> Edit(int id, [Bind("JobPostingID,Company,Description,CompanyAddress,Email,Salary,UserID")] JobPosting jobPosting)
         {
             if (id != jobPosting.JobPostingID)
             {
@@ -118,7 +118,7 @@ namespace JobSearchApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName", jobPosting.UserID);
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
             return View(jobPosting);
         }
 

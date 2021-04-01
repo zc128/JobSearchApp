@@ -57,7 +57,7 @@ namespace JobSearchApp.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ResumeID,UserID,Language,Email,Phone,HighestEducation,WorkExperience")] Resume resume)
+        public async Task<IActionResult> Create([Bind("ResumeID,UserID,Language,Email,Phone,HighestEducation,WorkExperience,Skills")] Resume resume)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace JobSearchApp.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ResumeID,UserID,Language,Email,Phone,HighestEducation,WorkExperience")] Resume resume)
+        public async Task<IActionResult> Edit(int id, [Bind("ResumeID,UserID,Language,Email,Phone,HighestEducation,WorkExperience,Skills")] Resume resume)
         {
             if (id != resume.ResumeID)
             {

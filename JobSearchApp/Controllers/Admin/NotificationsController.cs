@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
 
-namespace JobSearchApp.Controllers
+namespace JobSearchApp.Controllers.Admin
 {
     public class NotificationsController : Controller
     {
@@ -50,7 +50,7 @@ namespace JobSearchApp.Controllers
         public IActionResult Create()
         {
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName");
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName");
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NotificationID,UserID,Date,Description")] Notification notification)
+        public async Task<IActionResult> Create([Bind("NotificationID,UserID,Date,Description,Type")] Notification notification)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace JobSearchApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", notification.UserID);
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName", notification.UserID);
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", notification.UserID);
             return View(notification);
         }
 
@@ -86,7 +86,7 @@ namespace JobSearchApp.Controllers
                 return NotFound();
             }
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", notification.UserID);
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName", notification.UserID);
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", notification.UserID);
             return View(notification);
         }
 
@@ -95,7 +95,7 @@ namespace JobSearchApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NotificationID,UserID,Date,Description")] Notification notification)
+        public async Task<IActionResult> Edit(int id, [Bind("NotificationID,UserID,Date,Description,Type")] Notification notification)
         {
             if (id != notification.NotificationID)
             {
@@ -123,7 +123,7 @@ namespace JobSearchApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserID"] = new SelectList(_context.Candidates, "UserID", "FullName", notification.UserID);
-            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "FullName", notification.UserID);
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", notification.UserID);
             return View(notification);
         }
 

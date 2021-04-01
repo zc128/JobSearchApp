@@ -20,6 +20,7 @@ namespace JobSearchApp.Models
         public string CompanyAddress { get; set; }
         [StringLength(1000)]
         public string Email { get; set; }
+        public double Salary { get; set; }
         public int UserID { get; set; }
         [ForeignKey("UserID")]
         public Employer Employer { get; set; }

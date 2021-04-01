@@ -14,12 +14,17 @@ namespace JobSearchApp.Models
         public int ApplicationID { get; set; }
         [StringLength(1000)]
         public string Date { get; set; }
+        [StringLength(5000)]
+        public string Coverletter { get; set; }
         public int JobPostingID { get; set; }
         [ForeignKey("JobPostingID")]
         public JobPosting JobPosting { get; set; }
         public int UserID { get; set; }
         [ForeignKey("UserID")]
         public Candidate Candidate { get; set; }
+        public int? ResumeID { get; set; }
+        [ForeignKey("ResumeID")]
+        public Resume Resume { get; set; }
 
     }
 }

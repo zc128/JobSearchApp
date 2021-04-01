@@ -12,7 +12,9 @@ namespace JobSearchApp.Migrations
                 {
                     UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +31,9 @@ namespace JobSearchApp.Migrations
                     Company = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     JobTitle = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
+                    Phone = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    YearEstablished = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Biography = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,33 +51,14 @@ namespace JobSearchApp.Migrations
                     Email = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     HighestEducation = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    WorkExperience = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
+                    WorkExperience = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Skills = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Resumes", x => x.ResumeID);
                     table.ForeignKey(
                         name: "FK_Resumes_Candidates_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Candidates",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SavedSearches",
-                columns: table => new
-                {
-                    SavedSearchID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    SearchedTerm = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SavedSearches", x => x.SavedSearchID);
-                    table.ForeignKey(
-                        name: "FK_SavedSearches_Candidates_UserID",
                         column: x => x.UserID,
                         principalTable: "Candidates",
                         principalColumn: "UserID",
@@ -90,6 +75,7 @@ namespace JobSearchApp.Migrations
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     CompanyAddress = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Salary = table.Column<double>(type: "float", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -111,7 +97,8 @@ namespace JobSearchApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,14 +118,44 @@ namespace JobSearchApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SavedSearches",
+                columns: table => new
+                {
+                    SavedSearchID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CandidateID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: true),
+                    EmployerID = table.Column<int>(type: "int", nullable: false),
+                    SearchedTerm = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SavedSearches", x => x.SavedSearchID);
+                    table.ForeignKey(
+                        name: "FK_SavedSearches_Candidates_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Candidates",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SavedSearches_Employers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Employers",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JobApplications",
                 columns: table => new
                 {
                     ApplicationID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Coverletter = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
                     JobPostingID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    ResumeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -155,12 +172,23 @@ namespace JobSearchApp.Migrations
                         principalTable: "JobPostings",
                         principalColumn: "JobPostingID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobApplications_Resumes_ResumeID",
+                        column: x => x.ResumeID,
+                        principalTable: "Resumes",
+                        principalColumn: "ResumeID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobApplications_JobPostingID",
                 table: "JobApplications",
                 column: "JobPostingID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobApplications_ResumeID",
+                table: "JobApplications",
+                column: "ResumeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobApplications_UserID",
@@ -197,19 +225,19 @@ namespace JobSearchApp.Migrations
                 name: "Notifications");
 
             migrationBuilder.DropTable(
-                name: "Resumes");
-
-            migrationBuilder.DropTable(
                 name: "SavedSearches");
 
             migrationBuilder.DropTable(
                 name: "JobPostings");
 
             migrationBuilder.DropTable(
-                name: "Candidates");
+                name: "Resumes");
 
             migrationBuilder.DropTable(
                 name: "Employers");
+
+            migrationBuilder.DropTable(
+                name: "Candidates");
         }
     }
 }
