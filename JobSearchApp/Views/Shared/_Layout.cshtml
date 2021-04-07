@@ -10,9 +10,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JobSearchApp</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Job</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,25 +26,28 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Candidates" asp-action="index">Admin Candidates</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Candidates" asp-action="index">Candidates</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employers">Admin Employers</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Employers">Employers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobApplications">Admin JobApplications</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="JobApplications">JobApplications</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobPostings">Admin JobPostings</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="JobPostings">JobPostings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Notifications">Admin Notifications</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Notifications">Notifications</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Resumes">Admin Resumes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Resumes">Resumes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SavedSearches">Admin SavedSearches</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="SavedSearches">SavedSearches</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AppliedJobs">AppliedJobs</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

@@ -4,38 +4,22 @@ using JobSearchApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobSearchApp.Migrations
 {
     [DbContext(typeof(JobSearchDbContext))]
-    partial class JobSearchDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210407085103_Initial Migration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("JobSearchApp.Models.AppliedJob", b =>
-                {
-                    b.Property<int>("AppliedJobID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("JobPostingID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AppliedJobID");
-
-                    b.ToTable("AppliedJob");
-                });
 
             modelBuilder.Entity("JobSearchApp.Models.Candidate", b =>
                 {

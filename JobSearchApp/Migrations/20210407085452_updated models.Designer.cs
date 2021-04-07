@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSearchApp.Migrations
 {
     [DbContext(typeof(JobSearchDbContext))]
-    [Migration("20210401214144_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20210407085452_updated models")]
+    partial class updatedmodels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -233,10 +233,10 @@ namespace JobSearchApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CandidateID")
+                    b.Property<int?>("CandidateID")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployerID")
+                    b.Property<int?>("EmployerID")
                         .HasColumnType("int");
 
                     b.Property<string>("SearchedTerm")

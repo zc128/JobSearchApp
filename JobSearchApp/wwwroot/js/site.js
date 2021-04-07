@@ -4,6 +4,24 @@
 // Write your JavaScript code.
 /*$('#saveForOffline').on('click', () => { console.log("Offline Save Logic"); });*/
 
+if ('clipboard' in navigator) {
+    let canWriteClipboard = false;
+    navigator.permissions.query({ name: 'clipboard-read' }).then((perms) => {
+        canWriteClipboard = perms.state;
+
+        if (canWriteClipboard === "granted") {
+            $("#copyToClipboard").on('click', () => { navigator.clipboard.writeText(window.location.href); })
+        } else if (canWriteClipboard === "prompt") {
+            $("#copyToClipboard").on('click', () => { $("#clipboardPerms").show(); })
+        } else {
+            return;
+        }
+
+        $("#copyToClipboard").removeAttr('hidden');
+    });
+}
+
+
 if ('caches' in window) {
     let offlineBtn = $('#saveForOffline');
 
@@ -47,4 +65,18 @@ if ('caches' in window) {
 
     offlineBtn.removeAttr('hidden');
     //document.querySelector("#saveForOffline").removeAttribute('hidden');
+}
+function share() {
+    if (!("share" in navigator)) {
+        alert('Web Share API not supported.');
+        return;
+    }
+
+    navigator.share({
+        title: 'This is a Job Posting',
+        text: 'Please take a look at this Job Posting',
+        url: 'https://JobSearchApp.com/'
+    })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing:', error));
 }

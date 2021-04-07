@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSearchApp.Migrations
 {
     [DbContext(typeof(JobSearchDbContext))]
-    [Migration("20210401214531_Update SavedSearch class")]
-    partial class UpdateSavedSearchclass
+    [Migration("20210407092440_models")]
+    partial class models
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,24 @@ namespace JobSearchApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("JobSearchApp.Models.AppliedJob", b =>
+                {
+                    b.Property<int>("AppliedJobID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JobPostingID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppliedJobID");
+
+                    b.ToTable("AppliedJob");
+                });
 
             modelBuilder.Entity("JobSearchApp.Models.Candidate", b =>
                 {

@@ -123,9 +123,9 @@ namespace JobSearchApp.Migrations
                 {
                     SavedSearchID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CandidateID = table.Column<int>(type: "int", nullable: false),
+                    CandidateID = table.Column<int>(type: "int", nullable: true),
                     UserID = table.Column<int>(type: "int", nullable: true),
-                    EmployerID = table.Column<int>(type: "int", nullable: false),
+                    EmployerID = table.Column<int>(type: "int", nullable: true),
                     SearchedTerm = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true)
                 },
                 constraints: table =>

@@ -58,7 +58,10 @@
                 <a asp-action="Edit" asp-route-id="@item.JobPostingID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.JobPostingID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.JobPostingID">Delete</a>
+                <button onclick="share()">Share</button>
+                <button onclick="apply()">Apply</button>
             </td>
+
         </tr>
 }
     </tbody>
