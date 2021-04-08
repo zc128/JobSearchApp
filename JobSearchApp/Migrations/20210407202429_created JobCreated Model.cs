@@ -2,29 +2,29 @@
 
 namespace JobSearchApp.Migrations
 {
-    public partial class models : Migration
+    public partial class createdJobCreatedModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppliedJob",
+                name: "JobCreated",
                 columns: table => new
                 {
-                    AppliedJobID = table.Column<int>(type: "int", nullable: false)
+                    JobCreatedID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobPostingID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppliedJob", x => x.AppliedJobID);
+                    table.PrimaryKey("PK_JobCreated", x => x.JobCreatedID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AppliedJob");
+                name: "JobCreated");
         }
     }
 }

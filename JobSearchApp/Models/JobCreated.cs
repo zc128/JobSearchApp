@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace JobSearchApp.Models
 {
-    public class CreatedJobDescription
+    public class JobCreated
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CreatedJobDescriptionID { get; set; }
-        public int UserID { get; set; }
-        [StringLength(4000)]
-        public string Description { get; set; }
+        public int JobCreatedID { get; set; }
+        public string UserID { get; set; }
+        public int JobPostingID { get; set; }
 
     }
 }

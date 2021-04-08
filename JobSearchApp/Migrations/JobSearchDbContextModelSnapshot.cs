@@ -136,6 +136,24 @@ namespace JobSearchApp.Migrations
                     b.ToTable("JobApplications");
                 });
 
+            modelBuilder.Entity("JobSearchApp.Models.JobCreated", b =>
+                {
+                    b.Property<int>("JobCreatedID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JobPostingID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("JobCreatedID");
+
+                    b.ToTable("JobCreated");
+                });
+
             modelBuilder.Entity("JobSearchApp.Models.JobPosting", b =>
                 {
                     b.Property<int>("JobPostingID")

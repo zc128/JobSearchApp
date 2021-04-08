@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobSearchApp.Controllers.Admin
-{
+{   [Authorize]
     public class JobPostingsController : Controller
     {
         private readonly JobSearchDbContext _context;
@@ -59,10 +60,19 @@ namespace JobSearchApp.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("JobPostingID,Company,Description,CompanyAddress,Email,Salary,UserID")] JobPosting jobPosting)
         {
+          
             if (ModelState.IsValid)
             {
+                
                 _context.Add(jobPosting);
+
                 await _context.SaveChangesAsync();
+                JobCreated jobCreated = new JobCreated();
+                jobCreated.UserID = User.Identity.Name;
+                jobCreated.JobPostingID = jobPosting.JobPostingID;
+                _context.Add(jobCreated);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
@@ -157,4 +167,26 @@ namespace JobSearchApp.Controllers.Admin
             return _context.JobPostings.Any(e => e.JobPostingID == id);
         }
     }
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public async Task<IActionResult> Apply([Bind("JobPostingID,Company,Description,CompanyAddress,Email,Salary,UserID")] JobPosting jobPosting)
+    //{
+
+    //    if (ModelState.IsValid)
+    //    {
+
+    //        _context.Add(jobPosting);
+
+    //        await _context.SaveChangesAsync();
+    //        JobCreated jobCreated = new JobCreated();
+    //        jobCreated.UserID = User.Identity.Name;
+    //        jobCreated.JobPostingID = jobPosting.JobPostingID;
+    //        _context.Add(jobCreated);
+    //        await _context.SaveChangesAsync();
+
+    //        return RedirectToAction(nameof(Index));
+    //    }
+    //    ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
+    //    return View(jobPosting);
+    //}
 }

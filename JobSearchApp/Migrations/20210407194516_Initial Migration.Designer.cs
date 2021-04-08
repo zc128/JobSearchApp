@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSearchApp.Migrations
 {
     [DbContext(typeof(JobSearchDbContext))]
-    [Migration("20210407092440_models")]
-    partial class models
+    [Migration("20210407194516_Initial Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

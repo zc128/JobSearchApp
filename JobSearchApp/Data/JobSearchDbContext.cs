@@ -20,7 +20,7 @@ namespace JobSearchApp.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<SavedSearch> SavedSearches { get; set; }
-        public DbSet<JobSearchApp.Models.AppliedJob> AppliedJob { get; set; }
-
+        public DbSet<AppliedJob> AppliedJob { get; set; }
+        public DbSet<JobCreated> JobCreated { get; set; }
     }
 }
