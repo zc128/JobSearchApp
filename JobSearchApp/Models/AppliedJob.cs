@@ -12,7 +12,7 @@ namespace JobSearchApp.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppliedJobID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int JobPostingID { get; set; }
 
     }

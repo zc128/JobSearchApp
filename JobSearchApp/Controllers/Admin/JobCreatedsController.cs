@@ -7,25 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobSearchApp.Data;
 using JobSearchApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobSearchApp.Controllers.Admin
 {
-    public class AppliedJobsController : Controller
+    [Authorize]
+    public class JobCreatedsController : Controller
     {
         private readonly JobSearchDbContext _context;
 
-        public AppliedJobsController(JobSearchDbContext context)
+        public JobCreatedsController(JobSearchDbContext context)
         {
             _context = context;
         }
 
-        // GET: AppliedJobs
+        // GET: JobCreateds
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AppliedJob.ToListAsync());
+            return View(await _context.JobCreated.ToListAsync());
         }
 
-        // GET: AppliedJobs/Details/5
+        // GET: JobCreateds/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +35,39 @@ namespace JobSearchApp.Controllers.Admin
                 return NotFound();
             }
 
-            var appliedJob = await _context.AppliedJob
-                .FirstOrDefaultAsync(m => m.AppliedJobID == id);
-            if (appliedJob == null)
+            var jobCreated = await _context.JobCreated
+                .FirstOrDefaultAsync(m => m.JobCreatedID == id);
+            if (jobCreated == null)
             {
                 return NotFound();
             }
 
-            return View(appliedJob);
+            return View(jobCreated);
         }
 
-        // GET: AppliedJobs/Create
+        // GET: JobCreateds/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AppliedJobs/Create
+        // POST: JobCreateds/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppliedJobID,UserID,JobPostingID")] AppliedJob appliedJob)
+        public async Task<IActionResult> Create([Bind("JobCreatedID,UserID,JobPostingID")] JobCreated jobCreated)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(appliedJob);
+                _context.Add(jobCreated);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(appliedJob);
+            return View(jobCreated);
         }
 
-        // GET: AppliedJobs/Edit/5
+        // GET: JobCreateds/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +75,22 @@ namespace JobSearchApp.Controllers.Admin
                 return NotFound();
             }
 
-            var appliedJob = await _context.AppliedJob.FindAsync(id);
-            if (appliedJob == null)
+            var jobCreated = await _context.JobCreated.FindAsync(id);
+            if (jobCreated == null)
             {
                 return NotFound();
             }
-            return View(appliedJob);
+            return View(jobCreated);
         }
 
-        // POST: AppliedJobs/Edit/5
+        // POST: JobCreateds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AppliedJobID,UserID,JobPostingID")] AppliedJob appliedJob)
+        public async Task<IActionResult> Edit(int id, [Bind("JobCreatedID,UserID,JobPostingID")] JobCreated jobCreated)
         {
-            if (id != appliedJob.AppliedJobID)
+            if (id != jobCreated.JobCreatedID)
             {
                 return NotFound();
             }
@@ -97,12 +99,12 @@ namespace JobSearchApp.Controllers.Admin
             {
                 try
                 {
-                    _context.Update(appliedJob);
+                    _context.Update(jobCreated);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AppliedJobExists(appliedJob.AppliedJobID))
+                    if (!JobCreatedExists(jobCreated.JobCreatedID))
                     {
                         return NotFound();
                     }
@@ -113,10 +115,10 @@ namespace JobSearchApp.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(appliedJob);
+            return View(jobCreated);
         }
 
-        // GET: AppliedJobs/Delete/5
+        // GET: JobCreateds/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +126,30 @@ namespace JobSearchApp.Controllers.Admin
                 return NotFound();
             }
 
-            var appliedJob = await _context.AppliedJob
-                .FirstOrDefaultAsync(m => m.AppliedJobID == id);
-            if (appliedJob == null)
+            var jobCreated = await _context.JobCreated
+                .FirstOrDefaultAsync(m => m.JobCreatedID == id);
+            if (jobCreated == null)
             {
                 return NotFound();
             }
 
-            return View(appliedJob);
+            return View(jobCreated);
         }
 
-        // POST: AppliedJobs/Delete/5
+        // POST: JobCreateds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var appliedJob = await _context.AppliedJob.FindAsync(id);
-            _context.AppliedJob.Remove(appliedJob);
+            var jobCreated = await _context.JobCreated.FindAsync(id);
+            _context.JobCreated.Remove(jobCreated);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AppliedJobExists(int id)
+        private bool JobCreatedExists(int id)
         {
-            return _context.AppliedJob.Any(e => e.AppliedJobID == id);
+            return _context.JobCreated.Any(e => e.JobCreatedID == id);
         }
     }
 }

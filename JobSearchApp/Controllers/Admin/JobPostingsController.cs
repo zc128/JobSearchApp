@@ -78,6 +78,27 @@ namespace JobSearchApp.Controllers.Admin
             ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
             return View(jobPosting);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Apply(JobPosting jobPosting)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                _context.Add(jobPosting);
+                await _context.SaveChangesAsync();
+                AppliedJob appliedJob = new AppliedJob();
+                appliedJob.UserID = User.Identity.Name;
+                appliedJob.JobPostingID = jobPosting.JobPostingID;
+                _context.Add(appliedJob);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
+            return View(jobPosting);
+        }
 
         // GET: JobPostings/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -167,26 +188,4 @@ namespace JobSearchApp.Controllers.Admin
             return _context.JobPostings.Any(e => e.JobPostingID == id);
         }
     }
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> Apply([Bind("JobPostingID,Company,Description,CompanyAddress,Email,Salary,UserID")] JobPosting jobPosting)
-    //{
-
-    //    if (ModelState.IsValid)
-    //    {
-
-    //        _context.Add(jobPosting);
-
-    //        await _context.SaveChangesAsync();
-    //        JobCreated jobCreated = new JobCreated();
-    //        jobCreated.UserID = User.Identity.Name;
-    //        jobCreated.JobPostingID = jobPosting.JobPostingID;
-    //        _context.Add(jobCreated);
-    //        await _context.SaveChangesAsync();
-
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
-    //    return View(jobPosting);
-    //}
 }

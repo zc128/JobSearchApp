@@ -2,25 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-/*$('#saveForOffline').on('click', () => { console.log("Offline Save Logic"); });*/
-
-if ('clipboard' in navigator) {
-    let canWriteClipboard = false;
-    navigator.permissions.query({ name: 'clipboard-read' }).then((perms) => {
-        canWriteClipboard = perms.state;
-
-        if (canWriteClipboard === "granted") {
-            $("#copyToClipboard").on('click', () => { navigator.clipboard.writeText(window.location.href); })
-        } else if (canWriteClipboard === "prompt") {
-            $("#copyToClipboard").on('click', () => { $("#clipboardPerms").show(); })
-        } else {
-            return;
-        }
-
-        $("#copyToClipboard").removeAttr('hidden');
-    });
-}
-
 
 if ('caches' in window) {
     let offlineBtn = $('#saveForOffline');
@@ -38,12 +19,12 @@ if ('caches' in window) {
                     }
 
                     if (isNotCached) {
-                        offlineBtn.val('Save for offline');
+                        offlineBtn.val('Save to Caches');
                         cacheMech = () => {
                             cache.delete(window.location.href);
                         }
                     } else {
-                        offlineBtn.val('Remove from Cache');
+                        offlineBtn.val('Remove from Caches');
                     }
                     cacheMech();
                 })
@@ -56,7 +37,7 @@ if ('caches' in window) {
                         if (isCached) {
                             offlineBtn.val('Remove from Cache');
                         } else {
-                            offlineBtn.val('Save for offline');
+                            offlineBtn.val('Save to Caches');
                         }
                     });
                 });
@@ -64,7 +45,6 @@ if ('caches' in window) {
     }
 
     offlineBtn.removeAttr('hidden');
-    //document.querySelector("#saveForOffline").removeAttribute('hidden');
 }
 function share() {
     if (!("share" in navigator)) {
@@ -80,3 +60,21 @@ function share() {
         .then(() => console.log('Successful share'))
         .catch(error => console.log('Error sharing:', error));
 }
+
+//if ('clipboard' in navigator) {
+//    let canWriteClipboard = false;
+//    navigator.permissions.query({ name: 'clipboard-read' }).then((perms) => {
+//        canWriteClipboard = perms.state;
+
+//        if (canWriteClipboard === "granted") {
+//            $("#copyToClipboard").on('click', () => { navigator.clipboard.writeText(window.location.href); })
+//        } else if (canWriteClipboard === "prompt") {
+//            $("#copyToClipboard").on('click', () => { $("#clipboardPerms").show(); })
+//        } else {
+//            return;
+//        }
+
+//        $("#copyToClipboard").removeAttr('hidden');
+//    });
+//}
+  //document.querySelector("#saveForOffline").removeAttribute('hidden');

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Click the job details to save them to Cache</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -58,13 +58,13 @@
                 <a asp-action="Edit" asp-route-id="@item.JobPostingID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.JobPostingID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.JobPostingID">Delete</a>
-                <button onclick="share()">Share</button>
-                <form asp-action="Apply">
-                    <button onclick="apply()">Apply</button>
-                </form>
-                
             </td>
-
+            <td>
+                <form asp-action="Apply">
+                    <input type="submit" value="Apply" />
+                </form>
+                <button onclick="share()">Share</button>
+            </td>
         </tr>
 }
     </tbody>
