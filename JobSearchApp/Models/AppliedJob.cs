@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace JobSearchApp.Models
-{
+{   //This is the table for tracking the jobs a user has applied to
     public class AppliedJob
     {
         [Key]

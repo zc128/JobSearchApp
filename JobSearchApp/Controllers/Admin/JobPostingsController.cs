@@ -56,6 +56,8 @@ namespace JobSearchApp.Controllers.Admin
         // POST: JobPostings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        //This is the create Job function and tracks the Jobs that the current logged-in user has created
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("JobPostingID,Company,Description,CompanyAddress,Email,Salary,UserID")] JobPosting jobPosting)
@@ -78,6 +80,7 @@ namespace JobSearchApp.Controllers.Admin
             ViewData["UserID"] = new SelectList(_context.Employers, "UserID", "Company", jobPosting.UserID);
             return View(jobPosting);
         }
+        //This is the apply for job function, currently not working with unsolved exception.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Apply(JobPosting jobPosting)

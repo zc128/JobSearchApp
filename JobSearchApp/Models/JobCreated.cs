@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace JobSearchApp.Models
-{
+{  //This is the table for tracking The Job Descriptions that the user has created
     public class JobCreated
     {
         [Key]

@@ -18,7 +18,7 @@ function swInstall(event) {
 }
 self.addEventListener('install', swInstall);
 
-//Cache First
+//This is the function for Cache First strategy and checks if the browser is offline first
 if (navigator.onLine) {
     console.log('came online')
 } else {

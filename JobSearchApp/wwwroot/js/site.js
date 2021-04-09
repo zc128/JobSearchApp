@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+//This is the function for save/unsave job details to Cache
 if ('caches' in window) {
     let offlineBtn = $('#saveForOffline');
 
@@ -46,6 +47,8 @@ if ('caches' in window) {
 
     offlineBtn.removeAttr('hidden');
 }
+
+//This is the function for sharing job postings
 function share() {
     if (!("share" in navigator)) {
         alert('Web Share API not supported.');
@@ -60,6 +63,15 @@ function share() {
         .then(() => console.log('Successful share'))
         .catch(error => console.log('Error sharing:', error));
 }
+
+
+
+
+
+
+
+
+
 
 //if ('clipboard' in navigator) {
 //    let canWriteClipboard = false;
